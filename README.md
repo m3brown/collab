@@ -19,20 +19,9 @@ Core Collab comes with:
 
 ## Setting up a development environment
 
-Requirements:
-- Python (>= 2.6)
-- Mysql
+1. Clone this repo
 
-
-Follow these steps to set up collab:
-
-1. Clone this repo or a fork of it
-   ```bash
-   git clone https://github.com/cfpb/collab.git
-   cd collab
-   ```
-
-1. Make sure you have `pip` and `virtualenv` installed:
+2. Make sure you have `pip` and `virtualenv` installed:
 
    ```bash
    easy_install -U pip
@@ -42,35 +31,30 @@ Follow these steps to set up collab:
 
    You may have to prepend these commands with `sudo`, depending on your setup.
 
-1. Create a virtual environment for the project and install the necessary packages:
+3. Create a virtual environment for the project and install the necessary packages:
 
    ```bash
    virtualenv --no-site-packages --distribute venv    # creates the virtualenv named "venv"
    source venv/bin/activate                           # activates (places you in) the virtualenv
-   pip install -r requirements.txt                    # installs main required packages for collab
+   pip install -r requirements.txt                    # installs main required packages 
    pip install -r requirements-test.txt               # installs packages required for testing
    ```
 
-   _**Important Note:** Anytime you restart your terminal and return to work on this project, you will need to 
-   reactivate the virtualenv by running the `source venv/bin/activate` command from the collab root. See 
-   [virtualenv](http://pypi.python.org/pypi/virtualenv) for more details._
-
-1. Copy `collab/local_settings_template.py` to `collab/local_settings.py` and edit to match your current 
-   environment. In particular, update the `DATABASES` information. You will need to create the database you choose 
-   for the default schema.
+4. Copy `local_settings_template.py` to `local_settings.py` and edit to match your current 
+   environment.
    * Edit `DATABASES` (in the `else` block) to set the database user and password to whatever user you have set up 
      in MySQL (probably `root` with no password, since it's local to your machine).
    * Set a `SECRET KEY`. This can be any string you want.
-   * If you have already set up any other child apps besides the four required, uncomment them in `INSTALLED_APPS`.
 
-1. Set up the database:
+5. Set up the database:
 
    ```bash
-   mysql -u <user> -e 'create database collab'
+   mysql -u <user> -e 'create database dbname'
    python ./manage.py syncdb
    python ./manage.py syncdb --noinput --migrate
    python ./manage.py loaddata core/fixtures/core-test-fixtures.json
    ```
+
 
    Optionally, you can create random users for local testing.
 
